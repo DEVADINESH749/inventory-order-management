@@ -1,0 +1,224 @@
+﻿services:
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: inventory-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: inventory
+      RABBITMQ_DEFAULT_PASS: Inventory@123
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  redis:
+    image: redis:7-alpine
+    container_name: inventory-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  auth-service:
+    build: ../services/auth-service
+    container_name: inventory-auth
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    environment:
+      EVENT_WORKER_URL: http://event-worker:8020
+    ports:
+      - "8001:8001"
+
+  product-service:
+    build: ../services/product-service
+    container_name: inventory-product
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    ports:
+      - "8002:8002"
+
+  inventory-service:
+    build: ../services/inventory-service
+    container_name: inventory-inventory
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    environment:
+      EVENT_WORKER_URL: http://event-worker:8020
+    ports:
+      - "8003:8003"
+
+  cart-service:
+    build: ../services/cart-service
+    container_name: inventory-cart
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    ports:
+      - "8004:8004"
+
+  order-service:
+    build: ../services/order-service
+    container_name: inventory-order
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    environment:
+      EVENT_WORKER_URL: http://event-worker:8020
+    ports:
+      - "8005:8005"
+
+  payment-service:
+    build: ../services/payment-service
+    container_name: inventory-payment
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    environment:
+      EVENT_WORKER_URL: http://event-worker:8020
+      ORDER_SERVICE_URL: http://order-service:8005
+    ports:
+      - "8006:8006"
+
+  notification-service:
+    build: ../services/notification-service
+    container_name: inventory-notification
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    ports:
+      - "8007:8007"
+
+  review-service:
+    build: ../services/review-service
+    container_name: inventory-review
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    ports:
+      - "8008:8008"
+
+  return-service:
+    build: ../services/return-service
+    container_name: inventory-return
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    ports:
+      - "8010:8010"
+
+  coupon-service:
+    build: ../services/coupon-service
+    container_name: inventory-coupon
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    ports:
+      - "8011:8011"
+
+  analytics-service:
+    build: ../services/analytics-service
+    container_name: inventory-analytics
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    ports:
+      - "8012:8012"
+
+  event-worker:
+    build: ./event-worker
+    container_name: inventory-event-worker
+    restart: unless-stopped
+    environment:
+      RABBIT_HOST: rabbitmq
+      RABBIT_PORT: 5672
+      RABBIT_USER: inventory
+      RABBIT_PASSWORD: Inventory@123
+      REDIS_URL: redis://redis:6379/0
+      NOTIFICATION_URL: http://notification-service:8007
+    ports:
+      - "8020:8020"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      notification-service:
+        condition: service_started
+
+  api-gateway:
+    build: ../api-gateway
+    container_name: inventory-api-gateway
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    environment:
+      AUTH_SERVICE_URL: http://auth-service:8001
+      PRODUCT_SERVICE_URL: http://product-service:8002
+      INVENTORY_SERVICE_URL: http://inventory-service:8003
+      CART_SERVICE_URL: http://cart-service:8004
+      ORDER_SERVICE_URL: http://order-service:8005
+      PAYMENT_SERVICE_URL: http://payment-service:8006
+      NOTIFICATION_SERVICE_URL: http://notification-service:8007
+      REVIEW_SERVICE_URL: http://review-service:8008
+      RETURN_SERVICE_URL: http://return-service:8010
+      COUPON_SERVICE_URL: http://coupon-service:8011
+      ANALYTICS_SERVICE_URL: http://analytics-service:8012
+    ports:
+      - "8000:8000"
+    depends_on:
+      auth-service:
+        condition: service_started
+      product-service:
+        condition: service_started
+      inventory-service:
+        condition: service_started
+      cart-service:
+        condition: service_started
+      order-service:
+        condition: service_started
+      payment-service:
+        condition: service_started
+      notification-service:
+        condition: service_started
+      review-service:
+        condition: service_started
+      return-service:
+        condition: service_started
+      coupon-service:
+        condition: service_started
+      analytics-service:
+        condition: service_started
+
+  frontend:
+    build: ../frontend
+    container_name: inventory-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    depends_on:
+      api-gateway:
+        condition: service_started
+
+volumes:
+  rabbitmq_data:
+  redis_data:
+

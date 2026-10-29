@@ -1,0 +1,66 @@
+﻿services:
+
+  rabbitmq:
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  redis:
+    ports:
+      - "6379:6379"
+
+  auth-service:
+    ports:
+      - "18001:8001"
+
+  product-service:
+    ports:
+      - "18002:8002"
+
+  inventory-service:
+    ports:
+      - "18003:8003"
+
+  cart-service:
+    ports:
+      - "18004:8004"
+
+  order-service:
+    ports:
+      - "18005:8005"
+
+  payment-service:
+    ports:
+      - "18006:8006"
+
+  notification-service:
+    ports:
+      - "18007:8007"
+
+  review-service:
+    ports:
+      - "18008:8008"
+
+  return-service:
+    ports:
+      - "18010:8010"
+
+  coupon-service:
+    ports:
+      - "18011:8011"
+
+  analytics-service:
+    ports:
+      - "18012:8012"
+
+  event-worker:
+    ports:
+      - "18020:8020"
+
+  api-gateway:
+    ports:
+      - "18000:8000"
+
+  frontend:
+    ports:
+      - "15173:5173"

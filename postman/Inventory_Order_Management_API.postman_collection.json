@@ -1,0 +1,613 @@
+﻿{
+  "info": {
+    "_postman_id": "7d5f1e6a-8b24-4a2f-9f6c-1a7e5c4d2b90",
+    "name": "Inventory and Order Management System API",
+    "description": "Postman collection for the Inventory and Order Management System. Requests are routed through the FastAPI API Gateway.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "3",
+      "type": "string"
+    },
+    {
+      "key": "product_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "order_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "payment_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "return_id",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "coupon_id",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Gateway",
+      "item": [
+        {
+          "name": "Gateway Health",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/health"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Gateway health is 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Service Registry",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/services"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Service registry is 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login Admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@inventory.com\",\n  \"password\": \"Admin@12345\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/api/auth/login"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Login is 200', function () { pm.response.to.have.status(200); });",
+                  "const body = pm.response.json();",
+                  "const token = body.access_token || body.access || body.token;",
+                  "if (token) pm.collectionVariables.set('access_token', token);",
+                  "const id = body.user_id || (body.user && body.user.id);",
+                  "if (id) pm.collectionVariables.set('user_id', String(id));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Current User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": "{{base_url}}/api/auth/me"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Current user is 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/api/auth/refresh"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "List Products",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/products/products"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Products list is 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Product",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/products/products/{{product_id}}"
+          }
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Postman Test Mouse\",\n  \"description\": \"Test product created from Postman\",\n  \"category\": \"Electronics\",\n  \"price\": 999,\n  \"image_url\": \"https://example.com/mouse.jpg\",\n  \"sku\": \"POSTMAN-MOUSE-001\",\n  \"is_active\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/api/products/products"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Inventory",
+      "item": [
+        {
+          "name": "Get Inventory",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/inventory/inventory/{{product_id}}"
+          }
+        },
+        {
+          "name": "Availability",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/inventory/inventory/{{product_id}}/availability"
+          }
+        },
+        {
+          "name": "Reserve Stock",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/api/inventory/inventory/{{product_id}}/reserve"
+          }
+        },
+        {
+          "name": "Release Stock",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/api/inventory/inventory/{{product_id}}/release"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cart and Wishlist",
+      "item": [
+        {
+          "name": "Get Cart",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/cart/cart/{{user_id}}"
+          }
+        },
+        {
+          "name": "Add Cart Item",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": {{user_id}},\n  \"product_id\": {{product_id}},\n  \"quantity\": 1,\n  \"price\": 2299\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/api/cart/cart/items"
+          }
+        },
+        {
+          "name": "Get Wishlist",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/cart/cart/wishlist/{{user_id}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": {{user_id}},\n  \"shipping_address\": \"Chennai, Tamil Nadu, India\",\n  \"items\": [\n    {\n      \"product_id\": {{product_id}},\n      \"product_name\": \"Wireless Bluetooth Headphones\",\n      \"price\": 2299,\n      \"quantity\": 1\n    }\n  ],\n  \"discount_amount\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/api/orders/orders"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Order create is successful', function () { pm.expect([200,201]).to.include(pm.response.code); });",
+                  "const body = pm.response.json();",
+                  "if (body.id) pm.collectionVariables.set('order_id', String(body.id));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get User Orders",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/orders/orders/user/{{user_id}}"
+          }
+        },
+        {
+          "name": "Get Order",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/orders/orders/{{order_id}}"
+          }
+        },
+        {
+          "name": "Order Summary",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/orders/orders/{{order_id}}/summary"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Create Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_id\": {{order_id}},\n  \"user_id\": {{user_id}},\n  \"amount\": 2299,\n  \"currency\": \"INR\",\n  \"payment_method\": \"simulated\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/api/payments/payments"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Payment create is successful', function () { pm.expect([200,201]).to.include(pm.response.code); });",
+                  "const body = pm.response.json();",
+                  "if (body.id) pm.collectionVariables.set('payment_id', String(body.id));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Payment Success",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/payments/payments/{{payment_id}}/success"
+          }
+        },
+        {
+          "name": "Payment Summary",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/payments/payments/{{payment_id}}/summary"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "User Notifications",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/notifications/notifications/user/{{user_id}}"
+          }
+        },
+        {
+          "name": "Mark Notification Read",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/api/notifications/notifications/1/read"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reviews",
+      "item": [
+        {
+          "name": "Product Reviews",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/reviews/reviews/product/{{product_id}}"
+          }
+        },
+        {
+          "name": "Create Review",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": {{user_id}},\n  \"user_name\": \"Postman User\",\n  \"product_id\": {{product_id}},\n  \"rating\": 5,\n  \"title\": \"Excellent product\",\n  \"comment\": \"Postman integration test review\",\n  \"verified_purchase\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/api/reviews/reviews"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Returns",
+      "item": [
+        {
+          "name": "User Returns",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/returns/returns/user/{{user_id}}"
+          }
+        },
+        {
+          "name": "Order Returns",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/returns/returns/order/{{order_id}}"
+          }
+        },
+        {
+          "name": "Get Return",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/returns/returns/{{return_id}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Coupons",
+      "item": [
+        {
+          "name": "List Coupons",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/coupons/coupons"
+          }
+        },
+        {
+          "name": "Apply Coupon",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"SAVE10\",\n  \"order_amount\": 2299\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{base_url}}/api/coupons/coupons/apply"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Analytics",
+      "item": [
+        {
+          "name": "Dashboard",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/analytics/analytics/dashboard"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Analytics dashboard is 200', function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Summary",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/analytics/analytics/summary"
+          }
+        },
+        {
+          "name": "Sales Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/analytics/analytics/sales"
+          }
+        },
+        {
+          "name": "Returns Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/analytics/analytics/returns"
+          }
+        },
+        {
+          "name": "PDF Report",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/analytics/analytics/report.pdf"
+          }
+        }
+      ]
+    }
+  ]
+}
