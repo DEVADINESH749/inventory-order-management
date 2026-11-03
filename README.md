@@ -1,2332 +1,2332 @@
-﻿# \# Inventory and Order Management System
+﻿  Inventory and Order Management System
 
-# 
+ 
 
-# A complete \*\*Full-Stack Inventory and Order Management System\*\* built using a \*\*Microservices Architecture\*\*.
+ A complete Full-Stack Inventory and Order Management System built using a Microservices Architecture.
 
-# 
+ 
 
-# The project is designed to demonstrate how a real-world e-commerce and inventory platform can be developed using independent backend services, a React frontend, secure authentication, asynchronous messaging, containerization, automated testing, API testing, analytics, and reporting.
+ The project is designed to demonstrate how a real-world e-commerce and inventory platform can be developed using independent backend services, a React frontend, secure authentication, asynchronous messaging, containerization, automated testing, API testing, analytics, and reporting.
 
-# 
+ 
 
-# \---
+ ---
 
-# 
+ 
 
-# \## 📌 Project Overview
+  📌 Project Overview
 
-# 
+ 
 
-# The \*\*Inventory and Order Management System\*\* is a full-stack application that manages the complete lifecycle of products, inventory, customers, shopping carts, orders, payments, notifications, reviews, coupons, returns, refunds, and analytics.
+ The Inventory and Order Management System is a full-stack application that manages the complete lifecycle of products, inventory, customers, shopping carts, orders, payments, notifications, reviews, coupons, returns, refunds, and analytics.
 
-# 
+ 
 
-# Instead of implementing all business logic inside one backend application, the system is divided into multiple independent \*\*FastAPI microservices\*\*.
+ Instead of implementing all business logic inside one backend application, the system is divided into multiple independent FastAPI microservices.
 
-# 
+ 
 
-# Each microservice is responsible for a specific business function and maintains its own database.
+ Each microservice is responsible for a specific business function and maintains its own database.
 
-# 
+ 
 
-# The frontend communicates with the backend through an \*\*API Gateway\*\*, which acts as a single entry point for the application.
+ The frontend communicates with the backend through an API Gateway, which acts as a single entry point for the application.
 
-# 
+ 
 
-# The project also includes:
+ The project also includes:
 
-# 
+ 
 
-# \- JWT authentication
+ - JWT authentication
 
-# \- Secure password hashing
+ - Secure password hashing
 
-# \- Role-based access control
+ - Role-based access control
 
-# \- Product catalog management
+ - Product catalog management
 
-# \- Inventory management
+ - Inventory management
 
-# \- Cart and wishlist
+ - Cart and wishlist
 
-# \- Order management
+ - Order management
 
-# \- Simulated payment processing
+ - Simulated payment processing
 
-# \- Notifications
+ - Notifications
 
-# \- Product reviews and ratings
+ - Product reviews and ratings
 
-# \- Coupon and discount management
+ - Coupon and discount management
 
-# \- Returns and refunds
+ - Returns and refunds
 
-# \- Analytics dashboard APIs
+ - Analytics dashboard APIs
 
-# \- PDF report generation
+ - PDF report generation
 
-# \- RabbitMQ event messaging
+ - RabbitMQ event messaging
 
-# \- Redis infrastructure
+ - Redis infrastructure
 
-# \- Automated testing with Pytest
+ - Automated testing with Pytest
 
-# \- API testing with Postman
+ - API testing with Postman
 
-# \- Docker and Docker Compose
+ - Docker and Docker Compose
 
-# \- Git and GitHub version control
+ - Git and GitHub version control
 
-# 
+ 
 
-# \---
+ ---
 
-# 
+ 
 
-# \# 🎯 Project Objectives
+  🎯 Project Objectives
 
-# 
+ 
 
-# The main objectives of this project are:
+ The main objectives of this project are:
 
-# 
+ 
 
-# 1\. Build a complete full-stack business application.
+ 1. Build a complete full-stack business application.
 
-# 2\. Implement a practical microservices architecture.
+ 2. Implement a practical microservices architecture.
 
-# 3\. Separate business responsibilities into independent services.
+ 3. Separate business responsibilities into independent services.
 
-# 4\. Provide secure user authentication and authorization.
+ 4. Provide secure user authentication and authorization.
 
-# 5\. Manage products and inventory efficiently.
+ 5. Manage products and inventory efficiently.
 
-# 6\. Implement a complete cart-to-order workflow.
+ 6. Implement a complete cart-to-order workflow.
 
-# 7\. Simulate payment processing.
+ 7. Simulate payment processing.
 
-# 8\. Implement asynchronous communication using RabbitMQ.
+ 8. Implement asynchronous communication using RabbitMQ.
 
-# 9\. Generate notifications from business events.
+ 9. Generate notifications from business events.
 
-# 10\. Provide return and refund management.
+ 10. Provide return and refund management.
 
-# 11\. Implement coupon and discount functionality.
+ 11. Implement coupon and discount functionality.
 
-# 12\. Provide analytics and reporting.
+ 12. Provide analytics and reporting.
 
-# 13\. Containerize the application using Docker.
+ 13. Containerize the application using Docker.
 
-# 14\. Perform automated API/service testing using Pytest.
+ 14. Perform automated API/service testing using Pytest.
 
-# 15\. Test APIs using Postman.
+ 15. Test APIs using Postman.
 
-# 16\. Maintain the entire project in GitHub.
+ 16. Maintain the entire project in GitHub.
 
-# 
+ 
 
-# \---
+ ---
 
-# 
+ 
 
-# \# 🏗️ System Architecture
+  🏗️ System Architecture
 
-# 
+ 
 
-# The application follows a \*\*Microservices Architecture\*\*.
+ The application follows a Microservices Architecture.
 
-# 
+ 
 
-# ```text
+text
 
-# &#x20;                   ┌─────────────────────┐
+ &x20;                   ┌─────────────────────┐
 
-# &#x20;                   │      Customer       │
+ &x20;                   │      Customer       │
 
-# &#x20;                   │      / Admin        │
+ &x20;                   │      / Admin        │
 
-# &#x20;                   └──────────┬──────────┘
+ &x20;                   └──────────┬──────────┘
 
-# &#x20;                              │
+ &x20;                              │
 
-# &#x20;                              ▼
+ &x20;                              ▼
 
-# &#x20;                   ┌─────────────────────┐
+ &x20;                   ┌─────────────────────┐
 
-# &#x20;                   │   React Frontend    │
+ &x20;                   │   React Frontend    │
 
-# &#x20;                   │      Port 5173      │
+ &x20;                   │      Port 5173      │
 
-# &#x20;                   └──────────┬──────────┘
+ &x20;                   └──────────┬──────────┘
 
-# &#x20;                              │
+ &x20;                              │
 
-# &#x20;                              ▼
+ &x20;                              ▼
 
-# &#x20;                   ┌─────────────────────┐
+ &x20;                   ┌─────────────────────┐
 
-# &#x20;                   │    API Gateway      │
+ &x20;                   │    API Gateway      │
 
-# &#x20;                   │      Port 8000      │
+ &x20;                   │      Port 8000      │
 
-# &#x20;                   └──────────┬──────────┘
+ &x20;                   └──────────┬──────────┘
 
-# &#x20;                              │
+ &x20;                              │
 
-# &#x20;      ┌───────────────────────┼────────────────────────┐
+ &x20;      ┌───────────────────────┼────────────────────────┐
 
-# &#x20;      │           │           │          │              │
+ &x20;      │           │           │          │              │
 
-# &#x20;      ▼           ▼           ▼          ▼              ▼
+ &x20;      ▼           ▼           ▼          ▼              ▼
 
-# &#x20;  Auth       Product      Inventory    Cart           Order
+ &x20;  Auth       Product      Inventory    Cart           Order
 
-# &#x20; :8001        :8002         :8003      :8004          :8005
+ &x20; :8001        :8002         :8003      :8004          :8005
 
-# 
+ 
 
-# &#x20;      │           │           │          │              │
+ &x20;      │           │           │          │              │
 
-# &#x20;      ▼           ▼           ▼          ▼              ▼
+ &x20;      ▼           ▼           ▼          ▼              ▼
 
-# &#x20;    DB          DB           DB         DB             DB
+ &x20;    DB          DB           DB         DB             DB
 
-# 
+ 
 
-# &#x20;                        Order / Payment / Inventory
+ &x20;                        Order / Payment / Inventory
 
-# &#x20;                                 │
+ &x20;                                 │
 
-# &#x20;                                 ▼
+ &x20;                                 ▼
 
-# &#x20;                          ┌───────────────┐
+ &x20;                          ┌───────────────┐
 
-# &#x20;                          │   RabbitMQ    │
+ &x20;                          │   RabbitMQ    │
 
-# &#x20;                          │ Message Broker │
+ &x20;                          │ Message Broker │
 
-# &#x20;                          └───────┬───────┘
+ &x20;                          └───────┬───────┘
 
-# &#x20;                                  │
+ &x20;                                  │
 
-# &#x20;                                  ▼
+ &x20;                                  ▼
 
-# &#x20;                          ┌───────────────┐
+ &x20;                          ┌───────────────┐
 
-# &#x20;                          │ Event Worker  │
+ &x20;                          │ Event Worker  │
 
-# &#x20;                          │    :8020      │
+ &x20;                          │    :8020      │
 
-# &#x20;                          └───────┬───────┘
+ &x20;                          └───────┬───────┘
 
-# &#x20;                                  │
+ &x20;                                  │
 
-# &#x20;                                  ▼
+ &x20;                                  ▼
 
-# &#x20;                          Notification Service
+ &x20;                          Notification Service
 
-# &#x20;                               :8007
+ &x20;                               :8007
 
-# ```
 
-# 
 
-# This architecture separates the application into individual services so that each service can independently handle its own business logic.
+ 
 
-# 
+ This architecture separates the application into individual services so that each service can independently handle its own business logic.
 
-# \---
+ 
 
-# 
+ ---
 
-# \# 🧩 Microservices
+ 
 
-# 
+  🧩 Microservices
 
-# \## 1. API Gateway
+ 
 
-# 
+  1. API Gateway
 
-# \*\*Port:\*\* `8000`
+ 
 
-# 
+ Port: `8000`
 
-# The API Gateway acts as the main entry point for the frontend.
+ 
 
-# 
+ The API Gateway acts as the main entry point for the frontend.
 
-# Instead of the React application directly communicating with every microservice, the frontend sends requests through the API Gateway.
+ 
 
-# 
+ Instead of the React application directly communicating with every microservice, the frontend sends requests through the API Gateway.
 
-# \### Responsibilities
+ 
 
-# 
+  Responsibilities
 
-# \- Route requests to the correct microservice
+ 
 
-# \- Provide a centralized API entry point
+ - Route requests to the correct microservice
 
-# \- Hide internal service URLs from the frontend
+ - Provide a centralized API entry point
 
-# \- Simplify frontend-to-backend communication
+ - Hide internal service URLs from the frontend
 
-# 
+ - Simplify frontend-to-backend communication
 
-# Example:
+ 
 
-# 
+ Example:
 
-# ```text
+ 
 
-# React Frontend
+text
 
-# &#x20;     ↓
+ React Frontend
 
-# API Gateway
+ &x20;     ↓
 
-# &#x20;     ↓
+ API Gateway
 
-# Product Service
+ &x20;     ↓
 
-# ```
+ Product Service
 
-# 
 
-# \---
 
-# 
+ 
 
-# \# 🔐 2. Authentication Service
+ ---
 
-# 
+ 
 
-# \*\*Port:\*\* `8001`
+  🔐 2. Authentication Service
 
-# 
+ 
 
-# The Authentication Service manages users and application security.
+ Port: `8001`
 
-# 
+ 
 
-# \### Main Features
+ The Authentication Service manages users and application security.
 
-# 
+ 
 
-# \- User registration
+  Main Features
 
-# \- User login
+ 
 
-# \- JWT access tokens
+ - User registration
 
-# \- Refresh token support
+ - User login
 
-# \- Password hashing
+ - JWT access tokens
 
-# \- User profile
+ - Refresh token support
 
-# \- Authentication verification
+ - Password hashing
 
-# \- Role-based authorization
+ - User profile
 
-# 
+ - Authentication verification
 
-# \### Supported Roles
+ - Role-based authorization
 
-# 
+ 
 
-# \- Customer
+  Supported Roles
 
-# \- Inventory Manager
+ 
 
-# \- Admin
+ - Customer
 
-# 
+ - Inventory Manager
 
-# \### Authentication Flow
+ - Admin
 
-# 
+ 
 
-# ```text
+  Authentication Flow
 
-# User enters email/password
+ 
 
-# &#x20;         ↓
+text
 
-# Authentication Service
+ User enters email/password
 
-# &#x20;         ↓
+ &x20;         ↓
 
-# Password verification
+ Authentication Service
 
-# &#x20;         ↓
+ &x20;         ↓
 
-# JWT token generated
+ Password verification
 
-# &#x20;         ↓
+ &x20;         ↓
 
-# Frontend receives token
+ JWT token generated
 
-# &#x20;         ↓
+ &x20;         ↓
 
-# Token sent with protected requests
+ Frontend receives token
 
-# ```
+ &x20;         ↓
 
-# 
+ Token sent with protected requests
 
-# Passwords are stored using secure password hashing rather than plain text.
 
-# 
 
-# \---
+ 
 
-# 
+ Passwords are stored using secure password hashing rather than plain text.
 
-# \# 📦 3. Product Catalog Service
+ 
 
-# 
+ ---
 
-# \*\*Port:\*\* `8002`
+ 
 
-# 
+  📦 3. Product Catalog Service
 
-# The Product Service manages the complete product catalog.
+ 
 
-# 
+ Port: `8002`
 
-# \### Product Information
+ 
 
-# 
+ The Product Service manages the complete product catalog.
 
-# Each product may contain:
+ 
 
-# 
+  Product Information
 
-# \- Product ID
+ 
 
-# \- Product name
+ Each product may contain:
 
-# \- Description
+ 
 
-# \- Category
+ - Product ID
 
-# \- Price
+ - Product name
 
-# \- Image URL
+ - Description
 
-# \- SKU
+ - Category
 
-# \- Active/inactive status
+ - Price
 
-# 
+ - Image URL
 
-# \### Main Operations
+ - SKU
 
-# 
+ - Active/inactive status
 
-# \- Create product
+ 
 
-# \- View products
+  Main Operations
 
-# \- View product details
+ 
 
-# \- Update product
+ - Create product
 
-# \- Disable product
+ - View products
 
-# \- Product search
+ - View product details
 
-# \- Product filtering
+ - Update product
 
-# \- Product listing
+ - Disable product
 
-# 
+ - Product search
 
-# The Product Service is intentionally separate from Inventory so product information and stock information remain independent.
+ - Product filtering
 
-# 
+ - Product listing
 
-# \---
+ 
 
-# 
+ The Product Service is intentionally separate from Inventory so product information and stock information remain independent.
 
-# \# 🏪 4. Inventory Service
+ 
 
-# 
+ ---
 
-# \*\*Port:\*\* `8003`
+ 
 
-# 
+  🏪 4. Inventory Service
 
-# The Inventory Service manages stock levels.
+ 
 
-# 
+ Port: `8003`
 
-# \### Inventory Data
+ 
 
-# 
+ The Inventory Service manages stock levels.
 
-# \- Product ID
+ 
 
-# \- Total quantity
+  Inventory Data
 
-# \- Reserved quantity
+ 
 
-# \- Available quantity
+ - Product ID
 
-# \- Low-stock threshold
+ - Total quantity
 
-# \- Low-stock status
+ - Reserved quantity
 
-# 
+ - Available quantity
 
-# \### Main Operations
+ - Low-stock threshold
 
-# 
+ - Low-stock status
 
-# \- Check stock
+ 
 
-# \- Reserve stock
+  Main Operations
 
-# \- Release stock
+ 
 
-# \- Deduct stock
+ - Check stock
 
-# \- Monitor available quantity
+ - Reserve stock
 
-# \- Detect low-stock products
+ - Release stock
 
-# 
+ - Deduct stock
 
-# \### Inventory Workflow
+ - Monitor available quantity
 
-# 
+ - Detect low-stock products
 
-# ```text
+ 
 
-# Customer orders product
+  Inventory Workflow
 
-# &#x20;         ↓
+ 
 
-# Inventory checked
+text
 
-# &#x20;         ↓
+ Customer orders product
 
-# Stock reserved
+ &x20;         ↓
 
-# &#x20;         ↓
+ Inventory checked
 
-# Payment successful
+ &x20;         ↓
 
-# &#x20;         ↓
+ Stock reserved
 
-# Stock deducted
+ &x20;         ↓
 
-# ```
+ Payment successful
 
-# 
+ &x20;         ↓
 
-# The service can also publish low-stock events for asynchronous notification processing.
+ Stock deducted
 
-# 
 
-# \---
 
-# 
+ 
 
-# \# 🛒 5. Cart and Wishlist Service
+ The service can also publish low-stock events for asynchronous notification processing.
 
-# 
+ 
 
-# \*\*Port:\*\* `8004`
+ ---
 
-# 
+ 
 
-# The Cart Service manages customer shopping activity before checkout.
+  🛒 5. Cart and Wishlist Service
 
-# 
+ 
 
-# \### Features
+ Port: `8004`
 
-# 
+ 
 
-# \- Add product to cart
+ The Cart Service manages customer shopping activity before checkout.
 
-# \- Remove product
+ 
 
-# \- Update quantity
+  Features
 
-# \- View cart
+ 
 
-# \- Calculate cart totals
+ - Add product to cart
 
-# \- Wishlist management
+ - Remove product
 
-# 
+ - Update quantity
 
-# \### Example Flow
+ - View cart
 
-# 
+ - Calculate cart totals
 
-# ```text
+ - Wishlist management
 
-# Product Catalog
+ 
 
-# &#x20;     ↓
+  Example Flow
 
-# Add to Cart
+ 
 
-# &#x20;     ↓
+text
 
-# Cart Service
+ Product Catalog
 
-# &#x20;     ↓
+ &x20;     ↓
 
-# Update Quantity
+ Add to Cart
 
-# &#x20;     ↓
+ &x20;     ↓
 
-# Checkout
+ Cart Service
 
-# ```
+ &x20;     ↓
 
-# 
+ Update Quantity
 
-# \---
+ &x20;     ↓
 
-# 
+ Checkout
 
-# \# 📋 6. Order Management Service
 
-# 
 
-# \*\*Port:\*\* `8005`
+ 
 
-# 
+ ---
 
-# The Order Service manages the complete order lifecycle.
+ 
 
-# 
+  📋 6. Order Management Service
 
-# \### Responsibilities
+ 
 
-# 
+ Port: `8005`
 
-# \- Create orders
+ 
 
-# \- Store order items
+ The Order Service manages the complete order lifecycle.
 
-# \- Calculate order totals
+ 
 
-# \- Track payment status
+  Responsibilities
 
-# \- Track order status
+ 
 
-# \- Cancel orders
+ - Create orders
 
-# \- Update order state
+ - Store order items
 
-# \- Manage shipping information
+ - Calculate order totals
 
-# 
+ - Track payment status
 
-# \### Order Status Flow
+ - Track order status
 
-# 
+ - Cancel orders
 
-# ```text
+ - Update order state
 
-# Pending
+ - Manage shipping information
 
-# &#x20;  ↓
+ 
 
-# Confirmed
+  Order Status Flow
 
-# &#x20;  ↓
+ 
 
-# Processing
+text
 
-# &#x20;  ↓
+ Pending
 
-# Shipped
+ &x20;  ↓
 
-# &#x20;  ↓
+ Confirmed
 
-# Delivered
+ &x20;  ↓
 
-# ```
+ Processing
 
-# 
+ &x20;  ↓
 
-# Depending on the business workflow, an order can also be cancelled before final completion.
+ Shipped
 
-# 
+ &x20;  ↓
 
-# \---
+ Delivered
 
-# 
 
-# \# 💳 7. Payment Service
 
-# 
+ 
 
-# \*\*Port:\*\* `8006`
+ Depending on the business workflow, an order can also be cancelled before final completion.
 
-# 
+ 
 
-# The Payment Service handles simulated payment processing.
+ ---
 
-# 
+ 
 
-# This project uses simulated payments for development and demonstration rather than a real banking/payment provider.
+  💳 7. Payment Service
 
-# 
+ 
 
-# \### Payment States
+ Port: `8006`
 
-# 
+ 
 
-# ```text
+ The Payment Service handles simulated payment processing.
 
-# Pending
+ 
 
-# Success
+ This project uses simulated payments for development and demonstration rather than a real banking/payment provider.
 
-# Failed
+ 
 
-# Refunded
+  Payment States
 
-# ```
+ 
 
-# 
+text
 
-# \### Successful Payment Flow
+ Pending
 
-# 
+ Success
 
-# ```text
+ Failed
 
-# Order Created
+ Refunded
 
-# &#x20;     ↓
 
-# Payment Created
 
-# &#x20;     ↓
+ 
 
-# Payment Processed
+  Successful Payment Flow
 
-# &#x20;     ↓
+ 
 
-# Payment Successful
+text
 
-# &#x20;     ↓
+ Order Created
 
-# Transaction ID Generated
+ &x20;     ↓
 
-# &#x20;     ↓
+ Payment Created
 
-# Order Payment Status Updated
+ &x20;     ↓
 
-# &#x20;     ↓
+ Payment Processed
 
-# Order Confirmed
+ &x20;     ↓
 
-# ```
+ Payment Successful
 
-# 
+ &x20;     ↓
 
-# The project includes automatic \*\*Payment → Order synchronization\*\*.
+ Transaction ID Generated
 
-# 
+ &x20;     ↓
 
-# This means a successful payment automatically updates the corresponding order instead of requiring manual synchronization.
+ Order Payment Status Updated
 
-# 
+ &x20;     ↓
 
-# \---
+ Order Confirmed
 
-# 
 
-# \# 🔔 8. Notification Service
 
-# 
+ 
 
-# \*\*Port:\*\* `8007`
+ The project includes automatic Payment → Order synchronization.
 
-# 
+ 
 
-# The Notification Service stores and manages customer notifications.
+ This means a successful payment automatically updates the corresponding order instead of requiring manual synchronization.
 
-# 
+ 
 
-# Notifications can be generated for events such as:
+ ---
 
-# 
+ 
 
-# \- Order created
+  🔔 8. Notification Service
 
-# \- Payment successful
+ 
 
-# \- Payment failed
+ Port: `8007`
 
-# \- Order shipped
+ 
 
-# \- Order delivered
+ The Notification Service stores and manages customer notifications.
 
-# \- Order cancelled
+ 
 
-# \- Low-stock events
+ Notifications can be generated for events such as:
 
-# 
+ 
 
-# The service works together with RabbitMQ and the Event Worker.
+ - Order created
 
-# 
+ - Payment successful
 
-# \---
+ - Payment failed
 
-# 
+ - Order shipped
 
-# \# ⭐ 9. Review and Rating Service
+ - Order delivered
 
-# 
+ - Order cancelled
 
-# \*\*Port:\*\* `8008`
+ - Low-stock events
 
-# 
+ 
 
-# The Review Service manages customer feedback about products.
+ The service works together with RabbitMQ and the Event Worker.
 
-# 
+ 
 
-# \### Features
+ ---
 
-# 
+ 
 
-# \- Create product reviews
+  ⭐ 9. Review and Rating Service
 
-# \- Store ratings
+ 
 
-# \- Retrieve reviews
+ Port: `8008`
 
-# \- Associate reviews with products
+ 
 
-# \- Manage review information
+ The Review Service manages customer feedback about products.
 
-# 
+ 
 
-# This service is kept separate from the Product Service to maintain clear business boundaries.
+  Features
 
-# 
+ 
 
-# \---
+ - Create product reviews
 
-# 
+ - Store ratings
 
-# \# 🔄 10. Return and Refund Service
+ - Retrieve reviews
 
-# 
+ - Associate reviews with products
 
-# \*\*Port:\*\* `8010`
+ - Manage review information
 
-# 
+ 
 
-# The Return Service manages product return requests and refunds.
+ This service is kept separate from the Product Service to maintain clear business boundaries.
 
-# 
+ 
 
-# \### Return Lifecycle
+ ---
 
-# 
+ 
 
-# ```text
+  🔄 10. Return and Refund Service
 
-# Requested
+ 
 
-# &#x20;   ↓
+ Port: `8010`
 
-# Approved
+ 
 
-# &#x20;   ↓
+ The Return Service manages product return requests and refunds.
 
-# Received
+ 
 
-# &#x20;   ↓
+  Return Lifecycle
 
-# Refunded
+ 
 
-# ```
+text
 
-# 
+ Requested
 
-# The service records return information such as:
+ &x20;   ↓
 
-# 
+ Approved
 
-# \- Order
+ &x20;   ↓
 
-# \- Customer
+ Received
 
-# \- Product
+ &x20;   ↓
 
-# \- Quantity
+ Refunded
 
-# \- Refund amount
 
-# \- Return status
 
-# 
+ 
 
-# \---
+ The service records return information such as:
 
-# 
+ 
 
-# \# 🎟️ 11. Coupon and Discount Service
+ - Order
 
-# 
+ - Customer
 
-# \*\*Port:\*\* `8011`
+ - Product
 
-# 
+ - Quantity
 
-# The Coupon Service provides discount functionality.
+ - Refund amount
 
-# 
+ - Return status
 
-# \### Supported Discount Types
+ 
 
-# 
+ ---
 
-# \- Percentage discount
+ 
 
-# \- Fixed amount discount
+  🎟️ 11. Coupon and Discount Service
 
-# \- Minimum order amount
+ 
 
-# \- Maximum discount amount
+ Port: `8011`
 
-# \- Active/inactive coupon status
+ 
 
-# 
+ The Coupon Service provides discount functionality.
 
-# \### Checkout Flow
+ 
 
-# 
+  Supported Discount Types
 
-# ```text
+ 
 
-# Customer enters coupon
+ - Percentage discount
 
-# &#x20;         ↓
+ - Fixed amount discount
 
-# Coupon Service validates it
+ - Minimum order amount
 
-# &#x20;         ↓
+ - Maximum discount amount
 
-# Discount calculated
+ - Active/inactive coupon status
 
-# &#x20;         ↓
+ 
 
-# Final order amount updated
+  Checkout Flow
 
-# ```
+ 
 
-# 
+text
 
-# \---
+ Customer enters coupon
 
-# 
+ &x20;         ↓
 
-# \# 📊 12. Analytics and Reporting Service
+ Coupon Service validates it
 
-# 
+ &x20;         ↓
 
-# \*\*Port:\*\* `8012`
+ Discount calculated
 
-# 
+ &x20;         ↓
 
-# The Analytics Service provides business information and reporting.
+ Final order amount updated
 
-# 
 
-# \### Analytics Includes
 
-# 
+ 
 
-# \- Total orders
+ ---
 
-# \- Total revenue
+ 
 
-# \- Total products
+  📊 12. Analytics and Reporting Service
 
-# \- Total users
+ 
 
-# \- Total returns
+ Port: `8012`
 
-# \- Total refunds
+ 
 
-# \- Delivered orders
+ The Analytics Service provides business information and reporting.
 
-# \- Successful payments
+ 
 
-# \- Sales statistics
+  Analytics Includes
 
-# \- Order status summary
+ 
 
-# \- Payment status summary
+ - Total orders
 
-# 
+ - Total revenue
 
-# The service also provides a \*\*PDF report endpoint\*\* using ReportLab.
+ - Total products
 
-# 
+ - Total users
 
-# \---
+ - Total returns
 
-# 
+ - Total refunds
 
-# \# ⚙️ 13. Event Worker
+ - Delivered orders
 
-# 
+ - Successful payments
 
-# \*\*Port:\*\* `8020`
+ - Sales statistics
 
-# 
+ - Order status summary
 
-# The Event Worker processes asynchronous business events.
+ - Payment status summary
 
-# 
+ 
 
-# It works together with RabbitMQ.
+ The service also provides a PDF report endpoint using ReportLab.
 
-# 
+ 
 
-# \### Example Events
+ ---
 
-# 
+ 
 
-# ```text
+  ⚙️ 13. Event Worker
 
-# order.created
+ 
 
-# order.shipped
+ Port: `8020`
 
-# order.delivered
+ 
 
-# order.cancelled
+ The Event Worker processes asynchronous business events.
 
-# payment.success
+ 
 
-# payment.failed
+ It works together with RabbitMQ.
 
-# low-stock event
+ 
 
-# ```
+  Example Events
 
-# 
+ 
 
-# \### Event Flow
+text
 
-# 
+ order.created
 
-# ```text
+ order.shipped
 
-# Business Service
+ order.delivered
 
-# &#x20;      ↓
+ order.cancelled
 
-# RabbitMQ
+ payment.success
 
-# &#x20;      ↓
+ payment.failed
 
-# Event Worker
+ low-stock event
 
-# &#x20;      ↓
 
-# Notification Service
 
-# &#x20;      ↓
+ 
 
-# User Notification
+  Event Flow
 
-# ```
+ 
 
-# 
+text
 
-# This architecture prevents notification processing from unnecessarily blocking normal API requests.
+ Business Service
 
-# 
+ &x20;      ↓
 
-# \---
+ RabbitMQ
 
-# 
+ &x20;      ↓
 
-# \# 📨 RabbitMQ
+ Event Worker
 
-# 
+ &x20;      ↓
 
-# RabbitMQ is used as the application's message broker.
+ Notification Service
 
-# 
+ &x20;      ↓
 
-# It provides asynchronous communication between services.
+ User Notification
 
-# 
 
-# \### Why RabbitMQ?
 
-# 
+ 
 
-# RabbitMQ helps with:
+ This architecture prevents notification processing from unnecessarily blocking normal API requests.
 
-# 
+ 
 
-# \- Event-driven communication
+ ---
 
-# \- Asynchronous processing
+ 
 
-# \- Decoupling services
+  📨 RabbitMQ
 
-# \- Reliable message delivery
+ 
 
-# \- Notification processing
+ RabbitMQ is used as the application's message broker.
 
-# 
+ 
 
-# The project also uses a durable notification queue and a dead-letter queue for event handling.
+ It provides asynchronous communication between services.
 
-# 
+ 
 
-# \---
+  Why RabbitMQ?
 
-# 
+ 
 
-# \# ⚡ Redis
+ RabbitMQ helps with:
 
-# 
+ 
 
-# Redis is included as part of the application infrastructure.
+ - Event-driven communication
 
-# 
+ - Asynchronous processing
 
-# It can support:
+ - Decoupling services
 
-# 
+ - Reliable message delivery
 
-# \- Idempotency
+ - Notification processing
 
-# \- Caching
+ 
 
-# \- Temporary data
+ The project also uses a durable notification queue and a dead-letter queue for event handling.
 
-# \- Fast key-value operations
+ 
 
-# \- Shared infrastructure requirements
+ ---
 
-# 
+ 
 
-# \---
+  ⚡ Redis
 
-# 
+ 
 
-# \# 🗄️ Database Architecture
+ Redis is included as part of the application infrastructure.
 
-# 
+ 
 
-# The application follows a \*\*database-per-service\*\* approach.
+ It can support:
 
-# 
+ 
 
-# Each backend service maintains its own SQLite database.
+ - Idempotency
 
-# 
+ - Caching
 
-# Example:
+ - Temporary data
 
-# 
+ - Fast key-value operations
 
-# ```text
+ - Shared infrastructure requirements
 
-# Auth Service
+ 
 
-# &#x20;   ↓
+ ---
 
-# auth.db
+ 
 
-# 
+  🗄️ Database Architecture
 
-# Product Service
+ 
 
-# &#x20;   ↓
+ The application follows a database-per-service approach.
 
-# product.db
+ 
 
-# 
+ Each backend service maintains its own SQLite database.
 
-# Inventory Service
+ 
 
-# &#x20;   ↓
+ Example:
 
-# inventory.db
+ 
 
-# 
+text
 
-# Order Service
+ Auth Service
 
-# &#x20;   ↓
+ &x20;   ↓
 
-# order.db
+ auth.db
 
-# ```
+ 
 
-# 
+ Product Service
 
-# This prevents one service from becoming tightly dependent on another service's database.
+ &x20;   ↓
 
-# 
+ product.db
 
-# \---
+ 
 
-# 
+ Inventory Service
 
-# \# 🔐 Security
+ &x20;   ↓
 
-# 
+ inventory.db
 
-# The application includes multiple security mechanisms.
+ 
 
-# 
+ Order Service
 
-# \### Authentication
+ &x20;   ↓
 
-# 
+ order.db
 
-# JWT tokens are used for authenticated requests.
 
-# 
 
-# \### Password Protection
+ 
 
-# 
+ This prevents one service from becoming tightly dependent on another service's database.
 
-# Passwords are securely hashed before being stored.
+ 
 
-# 
+ ---
 
-# \### Role-Based Access
+ 
 
-# 
+  🔐 Security
 
-# Different application roles can have different permissions.
+ 
 
-# 
+ The application includes multiple security mechanisms.
 
-# \### Environment Configuration
+ 
 
-# 
+  Authentication
 
-# Sensitive configuration values should be stored in environment variables rather than hardcoded into source code.
+ 
 
-# 
+ JWT tokens are used for authenticated requests.
 
-# \### Git Security
+ 
 
-# 
+  Password Protection
 
-# The `.gitignore` file prevents local environment files, Python virtual environments, databases, and generated files from being committed accidentally.
+ 
 
-# 
+ Passwords are securely hashed before being stored.
 
-# \---
+ 
 
-# 
+  Role-Based Access
 
-# \# 🔄 Complete Business Workflow
+ 
 
-# 
+ Different application roles can have different permissions.
 
-# A typical customer transaction can follow this sequence:
+ 
 
-# 
+  Environment Configuration
 
-# ```text
+ 
 
-# Customer
+ Sensitive configuration values should be stored in environment variables rather than hardcoded into source code.
 
-# &#x20;  ↓
+ 
 
-# Register / Login
+  Git Security
 
-# &#x20;  ↓
+ 
 
-# Browse Products
+ The `.gitignore` file prevents local environment files, Python virtual environments, databases, and generated files from being committed accidentally.
 
-# &#x20;  ↓
+ 
 
-# View Product
+ ---
 
-# &#x20;  ↓
+ 
 
-# Check Inventory
+  🔄 Complete Business Workflow
 
-# &#x20;  ↓
+ 
 
-# Add Product to Cart
+ A typical customer transaction can follow this sequence:
 
-# &#x20;  ↓
+ 
 
-# Apply Coupon
+text
 
-# &#x20;  ↓
+ Customer
 
-# Checkout
+ &x20;  ↓
 
-# &#x20;  ↓
+ Register / Login
 
-# Create Order
+ &x20;  ↓
 
-# &#x20;  ↓
+ Browse Products
 
-# Reserve Inventory
+ &x20;  ↓
 
-# &#x20;  ↓
+ View Product
 
-# Process Payment
+ &x20;  ↓
 
-# &#x20;  ↓
+ Check Inventory
 
-# Payment Successful
+ &x20;  ↓
 
-# &#x20;  ↓
+ Add Product to Cart
 
-# Order Automatically Confirmed
+ &x20;  ↓
 
-# &#x20;  ↓
+ Apply Coupon
 
-# Business Event Published
+ &x20;  ↓
 
-# &#x20;  ↓
+ Checkout
 
-# Event Worker Processes Event
+ &x20;  ↓
 
-# &#x20;  ↓
+ Create Order
 
-# Notification Created
+ &x20;  ↓
 
-# &#x20;  ↓
+ Reserve Inventory
 
-# Order Processing
+ &x20;  ↓
 
-# &#x20;  ↓
+ Process Payment
 
-# Order Shipped
+ &x20;  ↓
 
-# &#x20;  ↓
+ Payment Successful
 
-# Order Delivered
+ &x20;  ↓
 
-# ```
+ Order Automatically Confirmed
 
-# 
+ &x20;  ↓
 
-# \---
+ Business Event Published
 
-# 
+ &x20;  ↓
 
-# \# 🔄 Return Workflow
+ Event Worker Processes Event
 
-# 
+ &x20;  ↓
 
-# When a customer wants to return a delivered product:
+ Notification Created
 
-# 
+ &x20;  ↓
 
-# ```text
+ Order Processing
 
-# Delivered Order
+ &x20;  ↓
 
-# &#x20;     ↓
+ Order Shipped
 
-# Return Request
+ &x20;  ↓
 
-# &#x20;     ↓
+ Order Delivered
 
-# Return Approved
 
-# &#x20;     ↓
 
-# Product Received
+ 
 
-# &#x20;     ↓
+ ---
 
-# Refund Processed
+ 
 
-# &#x20;     ↓
+  🔄 Return Workflow
 
-# Customer Notified
+ 
 
-# ```
+ When a customer wants to return a delivered product:
 
-# 
+ 
 
-# \---
+text
 
-# 
+ Delivered Order
 
-# \# 🧪 Testing
+ &x20;     ↓
 
-# 
+ Return Request
 
-# Automated tests are implemented using \*\*Pytest\*\*.
+ &x20;     ↓
 
-# 
+ Return Approved
 
-# \### Run Tests
+ &x20;     ↓
 
-# 
+ Product Received
 
-# ```powershell
+ &x20;     ↓
 
-# python -m pytest -q
+ Refund Processed
 
-# ```
+ &x20;     ↓
 
-# 
+ Customer Notified
 
-# \### Verified Result
 
-# 
 
-# ```text
+ 
 
-# 16 passed
+ ---
 
-# ```
+ 
 
-# 
+  🧪 Testing
 
-# The test suite validates service availability and important analytics/reporting endpoints.
+ 
 
-# 
+ Automated tests are implemented using Pytest.
 
-# The tested components include:
+ 
 
-# 
+  Run Tests
 
-# \- API Gateway
+ 
 
-# \- Authentication Service
+powershell
 
-# \- Product Service
+ python -m pytest -q
 
-# \- Inventory Service
 
-# \- Cart Service
 
-# \- Order Service
+ 
 
-# \- Payment Service
+  Verified Result
 
-# \- Notification Service
+ 
 
-# \- Review Service
+text
 
-# \- Return Service
+ 16 passed
 
-# \- Coupon Service
 
-# \- Analytics Service
 
-# \- Analytics dashboard
+ 
 
-# \- Analytics summary
+ The test suite validates service availability and important analytics/reporting endpoints.
 
-# \- Analytics reporting endpoint
+ 
 
-# \- Service health checks
+ The tested components include:
 
-# 
+ 
 
-# \---
+ - API Gateway
 
-# 
+ - Authentication Service
 
-# \# 📮 Postman API Testing
+ - Product Service
 
-# 
+ - Inventory Service
 
-# The project includes a complete Postman collection.
+ - Cart Service
 
-# 
+ - Order Service
 
-# \### Collection
+ - Payment Service
 
-# 
+ - Notification Service
 
-# ```text
+ - Review Service
 
-# postman/Inventory\_Order\_Management\_API.postman\_collection.json
+ - Return Service
 
-# ```
+ - Coupon Service
 
-# 
+ - Analytics Service
 
-# \### Environment
+ - Analytics dashboard
 
-# 
+ - Analytics summary
 
-# ```text
+ - Analytics reporting endpoint
 
-# postman/Inventory\_Order\_Management\_Local.postman\_environment.json
+ - Service health checks
 
-# ```
+ 
 
-# 
+ ---
 
-# The collection is designed to test the application's major API modules.
+ 
 
-# 
+  📮 Postman API Testing
 
-# \### Included API Areas
+ 
 
-# 
+ The project includes a complete Postman collection.
 
-# \- Authentication
+ 
 
-# \- Products
+  Collection
 
-# \- Inventory
+ 
 
-# \- Cart
+text
 
-# \- Orders
+ postman/Inventory_Order_Management_API.postman_collection.json
 
-# \- Payments
 
-# \- Notifications
 
-# \- Reviews
+ 
 
-# \- Returns
+  Environment
 
-# \- Coupons
+ 
 
-# \- Analytics
+text
 
-# 
+ postman/Inventory_Order_Management_Local.postman_environment.json
 
-# \---
 
-# 
 
-# \# 🐳 Docker
+ 
 
-# 
+ The collection is designed to test the application's major API modules.
 
-# The complete project is containerized using Docker Compose.
+ 
 
-# 
+  Included API Areas
 
-# \### Dockerized Components
+ 
 
-# 
+ - Authentication
 
-# \- API Gateway
+ - Products
 
-# \- Auth Service
+ - Inventory
 
-# \- Product Service
+ - Cart
 
-# \- Inventory Service
+ - Orders
 
-# \- Cart Service
+ - Payments
 
-# \- Order Service
+ - Notifications
 
-# \- Payment Service
+ - Reviews
 
-# \- Notification Service
+ - Returns
 
-# \- Review Service
+ - Coupons
 
-# \- Return Service
+ - Analytics
 
-# \- Coupon Service
+ 
 
-# \- Analytics Service
+ ---
 
-# \- Event Worker
+ 
 
-# \- React Frontend
+  🐳 Docker
 
-# \- RabbitMQ
+ 
 
-# \- Redis
+ The complete project is containerized using Docker Compose.
 
-# 
+ 
 
-# \---
+  Dockerized Components
 
-# 
+ 
 
-# \# ▶️ Run the Project with Docker
+ - API Gateway
 
-# 
+ - Auth Service
 
-# From the project root:
+ - Product Service
 
-# 
+ - Inventory Service
 
-# ```powershell
+ - Cart Service
 
-# docker compose `
+ - Order Service
 
-# &#x20; -f infrastructure/docker-compose.yml `
+ - Payment Service
 
-# &#x20; -f infrastructure/docker-compose.test.yml `
+ - Notification Service
 
-# &#x20; up -d
+ - Review Service
 
-# ```
+ - Return Service
 
-# 
+ - Coupon Service
 
-# Check containers:
+ - Analytics Service
 
-# 
+ - Event Worker
 
-# ```powershell
+ - React Frontend
 
-# docker compose `
+ - RabbitMQ
 
-# &#x20; -f infrastructure/docker-compose.yml `
+ - Redis
 
-# &#x20; -f infrastructure/docker-compose.test.yml `
+ 
 
-# &#x20; ps
+ ---
 
-# ```
+ 
 
-# 
+  ▶️ Run the Project with Docker
 
-# \---
+ 
 
-# 
+ From the project root:
 
-# \# 🌐 Application URLs
+ 
 
-# 
+powershell
 
-# When using the Docker test configuration:
+ docker compose `
 
-# 
+ &x20; -f infrastructure/docker-compose.yml `
 
-# | Component | URL |
+ &x20; -f infrastructure/docker-compose.test.yml `
 
-# |---|---|
+ &x20; up -d
 
-# | React Frontend | `http://127.0.0.1:15173` |
 
-# | API Gateway | `http://127.0.0.1:18000` |
 
-# | Gateway Swagger | `http://127.0.0.1:18000/docs` |
+ 
 
-# | RabbitMQ Management | `http://127.0.0.1:15672` |
+ Check containers:
 
-# 
+ 
 
-# When using the normal Compose ports:
+powershell
 
-# 
+ docker compose `
 
-# | Component | Port |
+ &x20; -f infrastructure/docker-compose.yml `
 
-# |---|---:|
+ &x20; -f infrastructure/docker-compose.test.yml `
 
-# | React Frontend | 5173 |
+ &x20; ps
 
-# | API Gateway | 8000 |
 
-# | RabbitMQ | 5672 |
 
-# | RabbitMQ Management | 15672 |
+ 
 
-# | Redis | 6379 |
+ ---
 
-# 
+ 
 
-# \---
+  🌐 Application URLs
 
-# 
+ 
 
-# \# 💻 Local Development
+ When using the Docker test configuration:
 
-# 
+ 
 
-# \## Frontend
+ | Component | URL |
 
-# 
+ |---|---|
 
-# ```powershell
+ | React Frontend | `http://127.0.0.1:15173` |
 
-# cd frontend
+ | API Gateway | `http://127.0.0.1:18000` |
 
-# npm install
+ | Gateway Swagger | `http://127.0.0.1:18000/docs` |
 
-# npm run dev
+ | RabbitMQ Management | `http://127.0.0.1:15672` |
 
-# ```
+ 
 
-# 
+ When using the normal Compose ports:
 
-# The Vite development server runs on:
+ 
 
-# 
+ | Component | Port |
 
-# ```text
+ |---|---:|
 
-# http://localhost:5173
+ | React Frontend | 5173 |
 
-# ```
+ | API Gateway | 8000 |
 
-# 
+ | RabbitMQ | 5672 |
 
-# \## Backend Example
+ | RabbitMQ Management | 15672 |
 
-# 
+ | Redis | 6379 |
 
-# Example for the Authentication Service:
+ 
 
-# 
+ ---
 
-# ```powershell
+ 
 
-# cd services/auth-service
+  💻 Local Development
 
-# python -m uvicorn app.main:app --reload --port 8001
+ 
 
-# ```
+  Frontend
 
-# 
+ 
 
-# Other services can be started similarly using their configured ports.
+powershell
 
-# 
+ cd frontend
 
-# \---
+ npm install
 
-# 
+ npm run dev
 
-# \# 📁 Project Structure
 
-# 
 
-# ```text
+ 
 
-# inventory-order-management/
+ The Vite development server runs on:
 
-# │
+ 
 
-# ├── api-gateway/
+text
 
-# │   ├── app/
+ http://localhost:5173
 
-# │   ├── Dockerfile
 
-# │   └── requirements.txt
 
-# │
+ 
 
-# ├── frontend/
+  Backend Example
 
-# │   ├── src/
+ 
 
-# │   ├── public/
+ Example for the Authentication Service:
 
-# │   ├── Dockerfile
+ 
 
-# │   ├── package.json
+powershell
 
-# │   └── vite.config.\*
+ cd services/auth-service
 
-# │
+ python -m uvicorn app.main:app --reload --port 8001
 
-# ├── services/
 
-# │   │
 
-# │   ├── auth-service/
+ 
 
-# │   ├── product-service/
+ Other services can be started similarly using their configured ports.
 
-# │   ├── inventory-service/
+ 
 
-# │   ├── cart-service/
+ ---
 
-# │   ├── order-service/
+ 
 
-# │   ├── payment-service/
+  📁 Project Structure
 
-# │   ├── notification-service/
+ 
 
-# │   ├── review-service/
+text
 
-# │   ├── return-service/
+ inventory-order-management/
 
-# │   ├── coupon-service/
+ │
 
-# │   └── analytics-service/
+ ├── api-gateway/
 
-# │
+ │   ├── app/
 
-# ├── infrastructure/
+ │   ├── Dockerfile
 
-# │   ├── docker-compose.yml
+ │   └── requirements.txt
 
-# │   ├── docker-compose.test.yml
+ │
 
-# │   └── event-worker/
+ ├── frontend/
 
-# │
+ │   ├── src/
 
-# ├── postman/
+ │   ├── public/
 
-# │   ├── Inventory\_Order\_Management\_API.postman\_collection.json
+ │   ├── Dockerfile
 
-# │   └── Inventory\_Order\_Management\_Local.postman\_environment.json
+ │   ├── package.json
 
-# │
+ │   └── vite.config.*
 
-# ├── tests/
+ │
 
-# │   └── test\_services.py
+ ├── services/
 
-# │
+ │   │
 
-# ├── .env.example
+ │   ├── auth-service/
 
-# ├── .gitignore
+ │   ├── product-service/
 
-# ├── pytest.ini
+ │   ├── inventory-service/
 
-# └── README.md
+ │   ├── cart-service/
 
-# ```
+ │   ├── order-service/
 
-# 
+ │   ├── payment-service/
 
-# \---
+ │   ├── notification-service/
 
-# 
+ │   ├── review-service/
 
-# \# 🖥️ Website Screenshots
+ │   ├── return-service/
 
-# 
+ │   ├── coupon-service/
 
-# The GitHub repository can include screenshots of the \*\*actual running application\*\*, not screenshots of the README.
+ │   └── analytics-service/
 
-# 
+ │
 
-# Recommended folder:
+ ├── infrastructure/
 
-# 
+ │   ├── docker-compose.yml
 
-# ```text
+ │   ├── docker-compose.test.yml
 
-# docs/
+ │   └── event-worker/
 
-# └── screenshots/
+ │
 
-# &#x20;   ├── frontend-home.png
+ ├── postman/
 
-# &#x20;   ├── api-gateway-swagger.png
+ │   ├── Inventory_Order_Management_API.postman_collection.json
 
-# &#x20;   ├── analytics-swagger.png
+ │   └── Inventory_Order_Management_Local.postman_environment.json
 
-# &#x20;   └── rabbitmq-management.png
+ │
 
-# ```
+ ├── tests/
 
-# 
+ │   └── test_services.py
 
-# Example README display:
+ │
 
-# 
+ ├── .env.example
 
-# \### Frontend
+ ├── .gitignore
 
-# 
+ ├── pytest.ini
 
-# !\[Inventory and Order Management Frontend](docs/screenshots/frontend-home.png)
+ └── README.md
 
-# 
 
-# \### API Gateway
 
-# 
+ 
 
-# !\[API Gateway Swagger UI](docs/screenshots/api-gateway-swagger.png)
+ ---
 
-# 
+ 
 
-# \### Analytics
+  🖥️ Website Screenshots
 
-# 
+ 
 
-# !\[Analytics API Swagger UI](docs/screenshots/analytics-swagger.png)
+ The GitHub repository can include screenshots of the actual running application, not screenshots of the README.
 
-# 
+ 
 
-# \### RabbitMQ
+ Recommended folder:
 
-# 
+ 
 
-# !\[RabbitMQ Management](docs/screenshots/rabbitmq-management.png)
+text
 
-# 
+ docs/
 
-# \---
+ └── screenshots/
 
-# 
+ &x20;   ├── frontend-home.png
 
-# \# 📸 Automatic Screenshot Generation
+ &x20;   ├── api-gateway-swagger.png
 
-# 
+ &x20;   ├── analytics-swagger.png
 
-# A PowerShell script can automatically generate the website screenshots after the application is running.
+ &x20;   └── rabbitmq-management.png
 
-# 
 
-# Run:
 
-# 
+ 
 
-# ```powershell
+ Example README display:
 
-# powershell -ExecutionPolicy Bypass -File .\\capture-readme-screenshots.ps1
+ 
 
-# ```
+  Frontend
 
-# 
+ 
 
-# The script can capture:
+ ![Inventory and Order Management Frontend](docs/screenshots/frontend-home.png)
 
-# 
+ 
 
-# \- React frontend
+  API Gateway
 
-# \- API Gateway Swagger UI
+ 
 
-# \- Analytics Swagger UI
+ ![API Gateway Swagger UI](docs/screenshots/api-gateway-swagger.png)
 
-# \- RabbitMQ Management UI
+ 
 
-# 
+  Analytics
 
-# The images are saved under:
+ 
 
-# 
+ ![Analytics API Swagger UI](docs/screenshots/analytics-swagger.png)
 
-# ```text
+ 
 
-# docs/screenshots/
+  RabbitMQ
 
-# ```
+ 
 
-# 
+ ![RabbitMQ Management](docs/screenshots/rabbitmq-management.png)
 
-# This makes it easy to refresh the GitHub README screenshots after changing the application.
+ 
 
-# 
+ ---
 
-# \---
+ 
 
-# 
+  📸 Automatic Screenshot Generation
 
-# \# 🧾 Environment Configuration
+ 
 
-# 
+ A PowerShell script can automatically generate the website screenshots after the application is running.
 
-# The project contains:
+ 
 
-# 
+ Run:
 
-# ```text
+ 
 
-# .env.example
+powershell
 
-# ```
+ powershell -ExecutionPolicy Bypass -File .capture-readme-screenshots.ps1
 
-# 
 
-# The environment configuration is used for values such as:
 
-# 
+ 
 
-# \- JWT configuration
+ The script can capture:
 
-# \- RabbitMQ connection
+ 
 
-# \- Redis connection
+ - React frontend
 
-# \- Event Worker URL
+ - API Gateway Swagger UI
 
-# \- Payment mode
+ - Analytics Swagger UI
 
-# \- Payment currency
+ - RabbitMQ Management UI
 
-# 
+ 
 
-# Never commit real passwords, API keys, tokens, or production secrets to GitHub.
+ The images are saved under:
 
-# 
+ 
 
-# \---
+text
 
-# 
+ docs/screenshots/
 
-# \# ✅ Validation Results
 
-# 
 
-# The project has been validated through multiple checks.
+ 
 
-# 
+ This makes it easy to refresh the GitHub README screenshots after changing the application.
 
-# | Validation | Result |
+ 
 
-# |---|---|
+ ---
 
-# | Docker Compose configuration | ✅ Passed |
+ 
 
-# | Backend dependency validation | ✅ Passed |
+  🧾 Environment Configuration
 
-# | Pytest | ✅ 16 tests passed |
+ 
 
-# | Frontend production build | ✅ Passed |
+ The project contains:
 
-# | Payment → Order automatic sync | ✅ Passed |
+ 
 
-# | Git commit | ✅ Completed |
+text
 
-# | GitHub push | ✅ Completed |
+ .env.example
 
-# | Working tree | ✅ Clean |
 
-# 
 
-# \---
+ 
 
-# 
+ The environment configuration is used for values such as:
 
-# \# 🚀 Important Integration
+ 
 
-# 
+ - JWT configuration
 
-# One important integration implemented in the project is the automatic payment-to-order update.
+ - RabbitMQ connection
 
-# 
+ - Redis connection
 
-# When a payment succeeds:
+ - Event Worker URL
 
-# 
+ - Payment mode
 
-# ```text
+ - Payment currency
 
-# Payment Service
+ 
 
-# &#x20;     ↓
+ Never commit real passwords, API keys, tokens, or production secrets to GitHub.
 
-# Payment Success
+ 
 
-# &#x20;     ↓
+ ---
 
-# Transaction ID
+ 
 
-# &#x20;     ↓
+  ✅ Validation Results
 
-# Order Service
+ 
 
-# &#x20;     ↓
+ The project has been validated through multiple checks.
 
-# payment\_status = success
+ 
 
-# &#x20;     ↓
+ | Validation | Result |
 
-# Order becomes confirmed
+ |---|---|
 
-# ```
+ | Docker Compose configuration | ✅ Passed |
 
-# 
+ | Backend dependency validation | ✅ Passed |
 
-# This removes the need for manually updating an order after successful payment.
+ | Pytest | ✅ 16 tests passed |
 
-# 
+ | Frontend production build | ✅ Passed |
 
-# \---
+ | Payment → Order automatic sync | ✅ Passed |
 
-# 
+ | Git commit | ✅ Completed |
 
-# \# 📈 Analytics and Reporting
+ | GitHub push | ✅ Completed |
 
-# 
+ | Working tree | ✅ Clean |
 
-# The Analytics Service provides API endpoints for business reporting.
+ 
 
-# 
+ ---
 
-# Examples include:
+ 
 
-# 
+  🚀 Important Integration
 
-# ```text
+ 
 
-# /analytics/dashboard
+ One important integration implemented in the project is the automatic payment-to-order update.
 
-# /analytics/orders/status
+ 
 
-# /analytics/payments/status
+ When a payment succeeds:
 
-# /analytics/sales
+ 
 
-# /analytics/returns
+text
 
-# /analytics/summary
+ Payment Service
 
-# /analytics/report.pdf
+ &x20;     ↓
 
-# ```
+ Payment Success
 
-# 
+ &x20;     ↓
 
-# The PDF endpoint generates a report containing application analytics.
+ Transaction ID
 
-# 
+ &x20;     ↓
 
-# This makes the project useful not only for transaction processing but also for business monitoring.
+ Order Service
 
-# 
+ &x20;     ↓
 
-# \---
+ payment_status = success
 
-# 
+ &x20;     ↓
 
-# \# 🌟 Key Features
+ Order becomes confirmed
 
-# 
 
-# \### Customer Features
 
-# 
+ 
 
-# \- Register
+ This removes the need for manually updating an order after successful payment.
 
-# \- Login
+ 
 
-# \- Browse products
+ ---
 
-# \- Search and filter products
+ 
 
-# \- View product details
+  📈 Analytics and Reporting
 
-# \- Add products to cart
+ 
 
-# \- Update cart
+ The Analytics Service provides API endpoints for business reporting.
 
-# \- Wishlist
+ 
 
-# \- Apply coupons
+ Examples include:
 
-# \- Checkout
+ 
 
-# \- Simulated payment
+text
 
-# \- View orders
+ /analytics/dashboard
 
-# \- Track order status
+ /analytics/orders/status
 
-# \- Receive notifications
+ /analytics/payments/status
 
-# \- Submit reviews
+ /analytics/sales
 
-# \- Request returns
+ /analytics/returns
 
-# \- Receive refunds
+ /analytics/summary
 
-# 
+ /analytics/report.pdf
 
-# \### Admin / Management Features
 
-# 
 
-# \- Manage products
+ 
 
-# \- Manage inventory
+ The PDF endpoint generates a report containing application analytics.
 
-# \- Monitor stock
+ 
 
-# \- View orders
+ This makes the project useful not only for transaction processing but also for business monitoring.
 
-# \- Manage coupons
+ 
 
-# \- Review returns
+ ---
 
-# \- Monitor analytics
+ 
 
-# \- Generate reports
+  🌟 Key Features
 
-# \- Manage application data
+ 
 
-# 
+  Customer Features
 
-# \---
+ 
 
-# 
+ - Register
 
-# \# 🎓 Learning Outcomes
+ - Login
 
-# 
+ - Browse products
 
-# This project demonstrates practical knowledge of:
+ - Search and filter products
 
-# 
+ - View product details
 
-# \- Full-stack application development
+ - Add products to cart
 
-# \- React.js
+ - Update cart
 
-# \- Python
+ - Wishlist
 
-# \- FastAPI
+ - Apply coupons
 
-# \- REST APIs
+ - Checkout
 
-# \- Microservices architecture
+ - Simulated payment
 
-# \- JWT authentication
+ - View orders
 
-# \- Password hashing
+ - Track order status
 
-# \- Role-based access control
+ - Receive notifications
 
-# \- SQLite
+ - Submit reviews
 
-# \- SQLAlchemy
+ - Request returns
 
-# \- RabbitMQ
+ - Receive refunds
 
-# \- Redis
+ 
 
-# \- Event-driven architecture
+  Admin / Management Features
 
-# \- Docker
+ 
 
-# \- Docker Compose
+ - Manage products
 
-# \- Postman
+ - Manage inventory
 
-# \- Pytest
+ - Monitor stock
 
-# \- API integration
+ - View orders
 
-# \- PDF reporting
+ - Manage coupons
 
-# \- Git
+ - Review returns
 
-# \- GitHub
+ - Monitor analytics
 
-# 
+ - Generate reports
 
-# \---
+ - Manage application data
 
-# 
+ 
 
-# \# 🔮 Future Enhancements
+ ---
 
-# 
+ 
 
-# Possible future improvements include:
+  🎓 Learning Outcomes
 
-# 
+ 
 
-# \- Real payment gateway integration
+ This project demonstrates practical knowledge of:
 
-# \- Production PostgreSQL databases
+ 
 
-# \- Kubernetes deployment
+ - Full-stack application development
 
-# \- Cloud deployment
+ - React.js
 
-# \- Advanced caching
+ - Python
 
-# \- Centralized logging
+ - FastAPI
 
-# \- Monitoring and metrics
+ - REST APIs
 
-# \- Email/SMS notifications
+ - Microservices architecture
 
-# \- Advanced recommendation systems
+ - JWT authentication
 
-# \- Real-time delivery tracking
+ - Password hashing
 
-# \- CI/CD pipeline
+ - Role-based access control
 
-# \- Production-grade API security
+ - SQLite
 
-# 
+ - SQLAlchemy
 
-# \---
+ - RabbitMQ
 
-# 
+ - Redis
 
-# \# 📌 Project Status
+ - Event-driven architecture
 
-# 
+ - Docker
 
-# \*\*Status: Completed and GitHub synchronized\*\*
+ - Docker Compose
 
-# 
+ - Postman
 
-# The project source code, service architecture, Docker configuration, tests, Postman collection, and supporting documentation are maintained in the GitHub repository.
+ - Pytest
 
-# 
+ - API integration
 
-# \---
+ - PDF reporting
 
-# 
+ - Git
 
-# \# 🔗 GitHub Repository
+ - GitHub
 
-# 
+ 
 
-# \*\*Repository:\*\*  
+ ---
 
-# https://github.com/DEVADINESH749/inventory-order-management
+ 
 
-# 
+  🔮 Future Enhancements
 
-# \---
+ 
 
-# 
+ Possible future improvements include:
 
-# \# 👨‍💻 Author
+ 
 
-# 
+ - Real payment gateway integration
 
-# \*\*Devarajan J\*\*
+ - Production PostgreSQL databases
 
-# 
+ - Kubernetes deployment
 
-# Full-Stack / Python Developer
+ - Cloud deployment
 
-# 
+ - Advanced caching
 
-# Technologies used in this project:
+ - Centralized logging
 
-# 
+ - Monitoring and metrics
 
-# \*\*React.js | Python | FastAPI | SQLite | JWT | RabbitMQ | Redis | Docker | Pytest | Postman | Git | GitHub
+ - Email/SMS notifications
+
+ - Advanced recommendation systems
+
+ - Real-time delivery tracking
+
+ - CI/CD pipeline
+
+ - Production-grade API security
+
+ 
+
+ ---
+
+ 
+
+  📌 Project Status
+
+ 
+
+ Status: Completed and GitHub synchronized
+
+ 
+
+ The project source code, service architecture, Docker configuration, tests, Postman collection, and supporting documentation are maintained in the GitHub repository.
+
+ 
+
+ ---
+
+ 
+
+  🔗 GitHub Repository
+
+ 
+
+ Repository:  
+
+ https://github.com/DEVADINESH749/inventory-order-management
+
+ 
+
+ ---
+
+ 
+
+  👨‍💻 Author
+
+ 
+
+ Devarajan J
+
+ 
+
+ Full-Stack / Python Developer
+
+ 
+
+ Technologies used in this project:
+
+ 
+
+ React.js | Python | FastAPI | SQLite | JWT | RabbitMQ | Redis | Docker | Pytest | Postman | Git | GitHub
 
